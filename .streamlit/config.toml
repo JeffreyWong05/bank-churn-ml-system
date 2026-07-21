@@ -1,0 +1,15 @@
+# Place this file at .streamlit/config.toml in the repo root.
+# Streamlit Community Cloud reads it automatically to theme your app.
+
+[theme]
+primaryColor = "#1a7f5a"            # accent (buttons, sliders)
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f4f6f8" # cards / sidebar
+textColor = "#1a1a2e"
+font = "sans serif"
+
+[server]
+headless = true                      # required for cloud/CI runs
+
+[browser]
+gatherUsageStats = false

@@ -1,0 +1,51 @@
+{
+  "headline_metrics": {
+    "roc_auc": 0.8683,
+    "pr_auc": 0.7187,
+    "recall": 0.4619,
+    "precision": 0.8,
+    "brier": 0.0988
+  },
+  "top_drivers": [
+    "NumOfProducts",
+    "Age",
+    "IsActiveMember",
+    "Gender",
+    "Geography"
+  ],
+  "fairness": {
+    "Gender": {
+      "demographic_parity_difference": 0.0577,
+      "equal_opportunity_difference": 0.064
+    },
+    "Geography": {
+      "demographic_parity_difference": 0.1509,
+      "equal_opportunity_difference": 0.255
+    }
+  },
+  "monitoring_final_batch": {
+    "batch": 6,
+    "n": 333,
+    "auc": 0.7761,
+    "max_psi": 0.8171,
+    "max_psi_feature": "Balance",
+    "drift_status": "significant"
+  },
+  "best_targeting": {
+    "target_depth": 0.5,
+    "customers_targeted": 1000.0,
+    "churners_in_target": 364.0,
+    "precision": 0.364,
+    "expected_retained": 109.2,
+    "gross_value_saved": 131040.0,
+    "campaign_cost": 40000.0,
+    "net_value": 91040.0,
+    "roi": 2.28
+  },
+  "uplift_vs_random_at_10pct": {
+    "target_depth": 0.1,
+    "model_net_value": 53200.0,
+    "random_net_value": 6652.0,
+    "uplift": 46548.0
+  }
+}

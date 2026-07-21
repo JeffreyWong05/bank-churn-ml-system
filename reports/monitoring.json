@@ -1,0 +1,96 @@
+{
+  "batches": [
+    {
+      "batch": 1,
+      "n": 334,
+      "auc": 0.8982,
+      "max_psi": 0.0398,
+      "max_psi_feature": "Age",
+      "drift_status": "stable"
+    },
+    {
+      "batch": 2,
+      "n": 334,
+      "auc": 0.8417,
+      "max_psi": 0.0905,
+      "max_psi_feature": "Balance",
+      "drift_status": "stable"
+    },
+    {
+      "batch": 3,
+      "n": 333,
+      "auc": 0.8957,
+      "max_psi": 0.295,
+      "max_psi_feature": "Balance",
+      "drift_status": "significant"
+    },
+    {
+      "batch": 4,
+      "n": 333,
+      "auc": 0.8742,
+      "max_psi": 0.4549,
+      "max_psi_feature": "Balance",
+      "drift_status": "significant"
+    },
+    {
+      "batch": 5,
+      "n": 333,
+      "auc": 0.8234,
+      "max_psi": 0.5626,
+      "max_psi_feature": "Balance",
+      "drift_status": "significant"
+    },
+    {
+      "batch": 6,
+      "n": 333,
+      "auc": 0.7761,
+      "max_psi": 0.8171,
+      "max_psi_feature": "Balance",
+      "drift_status": "significant"
+    }
+  ],
+  "psi_detail": [
+    {
+      "Age": 0.0398,
+      "CreditScore": 0.0214,
+      "BalanceSalaryRatio": 0.0085,
+      "EstimatedSalary": 0.0075,
+      "Balance": 0.0035
+    },
+    {
+      "Balance": 0.0905,
+      "EstimatedSalary": 0.0393,
+      "CreditScore": 0.0296,
+      "Age": 0.0249,
+      "BalanceSalaryRatio": 0.0221
+    },
+    {
+      "Balance": 0.295,
+      "Age": 0.0726,
+      "EstimatedSalary": 0.0556,
+      "BalanceSalaryRatio": 0.0428,
+      "CreditScore": 0.0291
+    },
+    {
+      "Balance": 0.4549,
+      "Age": 0.1655,
+      "BalanceSalaryRatio": 0.0533,
+      "EstimatedSalary": 0.0136,
+      "CreditScore": 0.0074
+    },
+    {
+      "Balance": 0.5626,
+      "Age": 0.3615,
+      "EstimatedSalary": 0.0698,
+      "BalanceSalaryRatio": 0.0608,
+      "CreditScore": 0.0499
+    },
+    {
+      "Balance": 0.8171,
+      "Age": 0.499,
+      "BalanceSalaryRatio": 0.2129,
+      "CreditScore": 0.0496,
+      "EstimatedSalary": 0.0205
+    }
+  ]
+}

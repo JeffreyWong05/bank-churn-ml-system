@@ -1,0 +1,16 @@
+{
+  "NumOfProducts": 0.721,
+  "Age": 0.56891,
+  "IsActiveMember": 0.31552,
+  "Gender": 0.19731,
+  "Geography": 0.18121,
+  "AgeBand": 0.14282,
+  "BalanceSalaryRatio": 0.12852,
+  "Balance": 0.12117,
+  "EstimatedSalary": 0.05823,
+  "CreditScore": 0.05377,
+  "ProductsPerTenure": 0.03844,
+  "Tenure": 0.02937,
+  "ZeroBalance": 0.01446,
+  "HasCrCard": 0.01197
+}

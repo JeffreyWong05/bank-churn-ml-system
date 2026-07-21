@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.venv/
+venv/
+# Keep models/reports so the deployed dashboard works without retraining,
+# but ignore scratch outputs:
+*.log
