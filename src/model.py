@@ -88,11 +88,12 @@ def train(data: dict, n_trials: int = 25, out_dir: str = "models"):
                         for k, v in study.best_params.items()},
     }
 
-    os.makedirs(out_dir, exist_ok=True)
+    reports_dir = os.path.join(os.path.dirname(out_dir), "reports")
+    os.makedirs(reports_dir, exist_ok=True)
     joblib.dump({"model": calibrated, "base": base,
                  "features": data["feature_names"], "categorical": cat},
                 os.path.join(out_dir, "model.joblib"))
-    with open(os.path.join(out_dir, "metrics.json"), "w") as f:
+    with open(os.path.join(reports_dir, "metrics.json"), "w") as f:
         json.dump(metrics, f, indent=2)
     return calibrated, base, metrics
 
