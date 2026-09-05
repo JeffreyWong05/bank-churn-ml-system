@@ -88,11 +88,14 @@ def train(data: dict, n_trials: int = 25, out_dir: str = "models"):
                         for k, v in study.best_params.items()},
     }
 
-    reports_dir = os.path.join(os.path.dirname(out_dir), "reports")
-    os.makedirs(reports_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
     joblib.dump({"model": calibrated, "base": base,
                  "features": data["feature_names"], "categorical": cat},
                 os.path.join(out_dir, "model.joblib"))
+    # metrics.json is a *report*, so it belongs in reports/ (where the dashboard
+    # and run_pipeline both look for it), not alongside the model.
+    reports_dir = os.path.join(os.path.dirname(out_dir), "reports")
+    os.makedirs(reports_dir, exist_ok=True)
     with open(os.path.join(reports_dir, "metrics.json"), "w") as f:
         json.dump(metrics, f, indent=2)
     return calibrated, base, metrics

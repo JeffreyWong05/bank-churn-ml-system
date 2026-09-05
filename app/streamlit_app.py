@@ -16,6 +16,7 @@ import sys
 import joblib
 import pandas as pd
 import streamlit as st
+from sklearn.metrics import recall_score, precision_score
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "src"))
@@ -49,6 +50,31 @@ st.title("🏦 Bank Customer Churn — Applied ML System")
 st.caption("LightGBM churn model with SHAP interpretability, a fairness audit, "
            "production drift monitoring, and a retention-campaign business case. "
            "Built on 10,000 bank customers.")
+
+# ---- Decision threshold (shared across tabs) --------------------------------
+# Change this one value to set the threshold the app opens with.
+DEFAULT_THRESHOLD = 0.50
+
+def _sync_slider_to_num():
+    st.session_state.thr_num = st.session_state.thr_slider
+
+def _sync_num_to_slider():
+    st.session_state.thr_slider = st.session_state.thr_num
+
+if "thr_slider" not in st.session_state:
+    st.session_state.thr_slider = DEFAULT_THRESHOLD
+    st.session_state.thr_num = DEFAULT_THRESHOLD
+
+st.sidebar.header("Decision threshold")
+st.sidebar.caption("Flag a customer as 'will churn' when their probability is at "
+                   "or above this cutoff. Lower it to catch more churners "
+                   "(higher recall) at the cost of more false alarms.")
+st.sidebar.slider("Threshold (drag)", 0.05, 0.95, step=0.01,
+                  key="thr_slider", on_change=_sync_slider_to_num)
+st.sidebar.number_input("…or type an exact value", 0.05, 0.95, step=0.01,
+                        key="thr_num", on_change=_sync_num_to_slider)
+THRESHOLD = st.session_state.thr_slider
+# -----------------------------------------------------------------------------
 
 tab_pred, tab_shap, tab_fair, tab_mon, tab_biz = st.tabs(
     ["🎯 Score a customer", "🔍 Why (SHAP)", "⚖️ Fairness",
@@ -88,9 +114,11 @@ with tab_pred:
     p = float(model.predict_proba(row)[:, 1][0])
     st.markdown("### Predicted churn probability")
     st.progress(min(p, 1.0))
-    verdict = "⚠️ High risk — recommend retention outreach" if p >= 0.5 \
+    verdict = "⚠️ High risk — recommend retention outreach" if p >= THRESHOLD \
         else "✅ Low risk — no action needed"
     st.metric("Churn probability", f"{p:.1%}", verdict)
+    st.caption(f"Classified using the decision threshold {THRESHOLD:.2f} "
+               "(set it in the sidebar).")
 
     st.markdown("#### Top drivers for *this* customer")
     local = shap_mod.local_explanation(base, row, top_k=5)
@@ -100,6 +128,19 @@ with tab_pred:
         "shap_value": local.values.round(3),
     })
     st.dataframe(drivers, hide_index=True, use_container_width=True)
+
+    st.markdown(f"#### Model performance at threshold {THRESHOLD:.2f} "
+                "(whole test set)")
+    preds_thr = (proba_test >= THRESHOLD).astype(int)
+    yt = D["y_test"].values
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Recall (churners caught)", f"{recall_score(yt, preds_thr):.1%}")
+    m2.metric("Precision (flags correct)",
+              f"{precision_score(yt, preds_thr, zero_division=0):.1%}")
+    m3.metric("Share of customers flagged", f"{preds_thr.mean():.1%}")
+    st.caption("Drag the sidebar threshold and watch the trade-off: recall rises "
+               "as you lower the cutoff, while precision falls. This is why the "
+               "0.50 default is a business lever, not a fixed rule.")
 
 # ------------------------------------------------------------------ SHAP
 with tab_shap:
