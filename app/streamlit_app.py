@@ -148,10 +148,24 @@ with tab_shap:
     st.image(os.path.join(ROOT, "reports", "shap_summary.png"),
              use_container_width=True)
     st.markdown(
-        "Each dot is a customer. Position shows how strongly a feature pushed "
-        "that customer's churn score up (right) or down (left); colour is the "
-        "feature value. This is how the model's logic is made auditable rather "
-        "than a black box.")
+            "Each dot is a customer. Position shows how strongly a feature pushed "
+            "that customer's churn score up (right) or down (left); colour is the "
+            "feature value. This is how the model's logic is made auditable rather "
+            "than a black box.")
+        # --- Feature interaction view ---
+    st.subheader("Feature interactions")          
+    xt = D["X_test"].copy()
+    xt["churned"] = D["y_test"].values
+    med = xt.loc[xt["BalanceSalaryRatio"] > 0, "BalanceSalaryRatio"].median()
+    xt["BSR_band"] = xt["BalanceSalaryRatio"].map(
+        lambda v: "empty" if v == 0 else ("low" if v < med else "high"))
+    piv = (xt.pivot_table(index="NumOfProducts", columns="BSR_band",
+                          values="churned", aggfunc="mean") * 100).round(1)
+    st.dataframe(piv.reindex(columns=["empty", "low", "high"]),
+                 use_container_width=True)
+    st.caption("The Balance to Salary ratio reverses in direction as product count increases. An empty balance is risky at 1 product," \
+    "but safe when at two products. The conditional situation is the interaction.")
+    
 
 # ------------------------------------------------------------------ Fairness
 with tab_fair:
