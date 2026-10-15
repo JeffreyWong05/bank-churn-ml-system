@@ -14,7 +14,7 @@ command, with an interactive dashboard.
 
 <!-- SCREENSHOT: after you deploy, take a screenshot of the dashboard, save it as
 docs/screenshot.png, commit it, then delete this comment and uncomment the line below. -->
-<!-- ![Dashboard screenshot](docs/screenshot.png) -->
+![Dashboard screenshot](docs/screenshot.png)
 
 ---
 

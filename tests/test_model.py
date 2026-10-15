@@ -21,5 +21,5 @@ def test_auc_clears_floor(model_bundle, prepared):
 def test_predicts_both_classes(model_bundle, prepared):
     preds = model_bundle["model"].predict(prepared["X_test"]) #get the predictions from the calibrated model
 
-    assert set(preds) == {0,1}, f"model only predicted {set{preds}}. Only a single class was choosen."
+    assert set(preds) == {0,1}, f"model only predicted {set(preds)}. Only a single class was choosen."
     
