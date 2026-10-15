@@ -7,9 +7,9 @@ drift monitoring, and a costed retention-campaign business case.
 Built on 10,000 retail-banking customers. Reproducible from raw data with one
 command, with an interactive dashboard.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bank-churn-jeffrey.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bank-churn-ml-system-jeffrey.streamlit.app)
 
-**🔗 Live dashboard:** <https://bank-churn-jeffrey.streamlit.app>
+**🔗 Live dashboard:** <https://bank-churn-ml-system-jeffrey.streamlit.app>
 **▶ Reproduce everything:** `python src/run_pipeline.py`
 
 <!-- SCREENSHOT: after you deploy, take a screenshot of the dashboard, save it as
